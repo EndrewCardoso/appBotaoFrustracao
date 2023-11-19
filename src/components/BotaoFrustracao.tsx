@@ -16,6 +16,7 @@ interface BotaFrustracaoProps {
     parPergunta: string;
     parResposta: string[];
     parDica: string[];
+    parDificuldade: number;
   };
 }
 
@@ -44,13 +45,14 @@ export default function BotaoFrustracao({ usuario, pergunta }: BotaFrustracaoPro
     };
   }, [pararContagem]);
 
-  async function guardarInfo (parNome: string, parCpf: string, parTema: string, parPergunta: string, parResposta: string[]) {
+  async function guardarInfo (parNome: string, parCpf: string, parTema: string, parPergunta: string, parResposta: string[], parDificuldade: number) {
     setPararContagem(true);
     setModal(true);
     
-    const respostaMesclada = pergunta.parResposta.join(';');
-    console.log(parNome, parCpf, parTema, parPergunta, respostaMesclada, contador);
-    const result = await api.post('/frustracao', {parNome, parCpf, parTema, parPergunta, respostaMesclada, contador},
+    let cpf = parCpf.replaceAll('.', '').replaceAll('-', '');
+    let respostaMesclada = parResposta.join(';');
+    console.log(parNome, cpf, parTema, parPergunta, respostaMesclada, parDificuldade, contador);
+    const result = await api.post('/frustracao', {parNome, cpf, parTema, parPergunta, respostaMesclada, parDificuldade, contador},
       {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -73,7 +75,7 @@ export default function BotaoFrustracao({ usuario, pergunta }: BotaFrustracaoPro
 
       <button
         className="w-20 btn-base rounded"
-        onClick={() => guardarInfo(usuario.parNome, usuario.parCpf, pergunta.parTema, pergunta.parPergunta, pergunta.parResposta)}
+        onClick={() => guardarInfo(usuario.parNome, usuario.parCpf, pergunta.parTema, pergunta.parPergunta, pergunta.parResposta, pergunta.parDificuldade)}
       >
         Estou Frustrado {contador}
       </button>

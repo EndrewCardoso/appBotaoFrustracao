@@ -13,6 +13,7 @@ function App() {
         'Qual o melhor laço de repetição para se usar quando não sabemos o momento de finalizar a repetição?',
       tipoResposta: 'texto',
       dicas: ['Dica 1', 'Dica 3'],
+      dificuldade: 1,
     },
     {
       titulo: 'Banco de Dados',
@@ -22,6 +23,7 @@ function App() {
       tipoResposta: 'unico',
       opcoes: ['Resposta 1', 'Resposta 2', 'Resposta 3'],
       dicas: ['Dica 2'],
+      dificuldade: 2,
     },
     {
       titulo: 'Orientação a objetos',
@@ -31,6 +33,7 @@ function App() {
       tipoResposta: 'multiplo',
       opcoes: ['Resposta 1', 'Resposta 2', 'Resposta 3'],
       dicas: ['Dica 1', 'Dica 2', 'Dica 3'],
+      dificuldade: 3,
     },
   ];
 
@@ -69,6 +72,7 @@ function App() {
             parPergunta: Pergunta[NrPergunta].pergunta,
             parResposta: resposta,
             parDica: Pergunta[NrPergunta].dicas,
+            parDificuldade: Pergunta[NrPergunta].dificuldade,
           }}
         />
         
