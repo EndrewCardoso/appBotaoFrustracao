@@ -3,6 +3,7 @@ import { ModalFrustracao } from './ModalFrustracao';
 import api from '../servicos/api';
 import '../estilos/Botao.css';
 import '../estilos/ModalFrustracao.css';
+import Pergunta from '../views/Pergunta';
 
 interface BotaFrustracaoProps {
   
@@ -45,14 +46,14 @@ export default function BotaoFrustracao({ usuario, pergunta }: BotaFrustracaoPro
     };
   }, [pararContagem]);
 
-  async function guardarInfo (parNome: string, parCpf: string, parTema: string, parPergunta: string, parResposta: string[], parDificuldade: number) {
+  async function guardarInfo (parNome: string, parCpf: string, parTema: string, parPerguntaId: number, parPergunta: string, parResposta: string[], parDificuldade: number) {
     setPararContagem(true);
     setModal(true);
     
     let cpf = parCpf.replaceAll('.', '').replaceAll('-', '');
     let respostaMesclada = parResposta.join(';');
-    console.log(parNome, cpf, parTema, parPergunta, respostaMesclada, parDificuldade, contador);
-    const result = await api.post('/frustracao', {parNome, cpf, parTema, parPergunta, respostaMesclada, parDificuldade, contador},
+    console.log(parNome, cpf, parTema, parPerguntaId, parPergunta, respostaMesclada, parDificuldade, contador);
+    const result = await api.post('/frustracao', {parNome, cpf, parTema, parPerguntaId, parPergunta, respostaMesclada, parDificuldade, contador},
       {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -75,7 +76,7 @@ export default function BotaoFrustracao({ usuario, pergunta }: BotaFrustracaoPro
 
       <button
         className="w-20 btn-base rounded"
-        onClick={() => guardarInfo(usuario.parNome, usuario.parCpf, pergunta.parTema, pergunta.parPergunta, pergunta.parResposta, pergunta.parDificuldade)}
+        onClick={() => guardarInfo(usuario.parNome, usuario.parCpf, pergunta.parTema, pergunta.perguntaId, pergunta.parPergunta, pergunta.parResposta, pergunta.parDificuldade)}
       >
         Estou Frustrado {contador}
       </button>
